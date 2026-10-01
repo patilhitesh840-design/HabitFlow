@@ -1,0 +1,903 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HabitFlow - Habit Tracker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ✓
+            </div>
+
+            <div>
+                <h2>HabitFlow</h2>
+                <span>Build better habits</span>
+            </div>
+
+        </div>
+
+
+        <nav>
+
+            <button
+                class="nav-item active"
+                data-section="dashboard"
+            >
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="habits"
+            >
+                <span>✓</span>
+                My Habits
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="statistics"
+            >
+                <span>◈</span>
+                Statistics
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-section="calendar"
+            >
+                <span>▣</span>
+                Calendar
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="quote">
+
+                <span>💡</span>
+
+                <p>
+                    Small steps every day create big results.
+                </p>
+
+            </div>
+
+
+            <button
+                class="clear-btn"
+                id="clearData"
+            >
+                🗑 Clear All Data
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN CONTENT
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="header">
+
+            <div>
+
+                <p
+                    class="date"
+                    id="currentDate"
+                ></p>
+
+                <h1 id="pageTitle">
+                    Good morning 👋
+                </h1>
+
+            </div>
+
+
+            <button
+                class="add-btn"
+                id="openModal"
+            >
+                <span>+</span>
+                Add Habit
+            </button>
+
+        </header>
+
+
+
+        <!-- =========================
+             DASHBOARD
+        ========================== -->
+
+        <section
+            id="dashboard"
+            class="section active-section"
+        >
+
+
+            <!-- STATS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Today's Progress
+                        </span>
+
+                        <strong id="todayProgress">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Best Streak
+                        </span>
+
+                        <strong id="bestStreak">
+                            0 days
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Completed Today
+                        </span>
+
+                        <strong id="completedToday">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        ◎
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Total Habits
+                        </span>
+
+                        <strong id="totalHabits">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONTENT GRID -->
+
+            <div class="content-grid">
+
+
+                <!-- TODAY'S HABITS -->
+
+                <div class="panel habits-panel">
+
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Today's Habits
+                            </h2>
+
+                            <p>
+                                Stay consistent and keep your streak alive.
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="progress-small"
+                            id="smallProgress"
+                        >
+                            0/0
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        id="habitList"
+                        class="habit-list"
+                    ></div>
+
+
+
+                    <!-- EMPTY STATE -->
+
+                    <div
+                        id="emptyState"
+                        class="empty-state"
+                    >
+
+                        <div>
+                            🌱
+                        </div>
+
+                        <h3>
+                            No habits yet
+                        </h3>
+
+                        <p>
+                            Create your first habit and start building your routine.
+                        </p>
+
+                        <button
+                            class="add-btn small"
+                            id="emptyAdd"
+                        >
+                            + Create Habit
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WEEKLY OVERVIEW -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <h2>
+                                Weekly Overview
+                            </h2>
+
+                            <p>
+                                Your activity this week.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="week-chart"
+                        id="weekChart"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MOTIVATION -->
+
+            <div class="motivation">
+
+                <div class="motivation-icon">
+                    🚀
+                </div>
+
+                <div>
+
+                    <h2>
+                        Keep going!
+                    </h2>
+
+                    <p id="motivationText">
+                        Every completed habit is one step closer to your goal.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             MY HABITS
+        ========================== -->
+
+        <section
+            id="habits"
+            class="section"
+        >
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        My Habits
+                    </h2>
+
+                    <p>
+                        Manage all your daily habits.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="add-btn"
+                    id="openModal2"
+                >
+                    + Add Habit
+                </button>
+
+            </div>
+
+
+            <div
+                id="allHabits"
+                class="all-habits"
+            ></div>
+
+        </section>
+
+
+
+        <!-- =========================
+             STATISTICS
+        ========================== -->
+
+        <section
+            id="statistics"
+            class="section"
+        >
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Statistics
+                    </h2>
+
+                    <p>
+                        Understand your consistency and progress.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- STATISTICS CARDS -->
+
+            <div class="statistics-grid">
+
+
+                <div class="big-stat">
+
+                    <span>
+                        Total Completions
+                    </span>
+
+                    <strong id="totalCompletions">
+                        0
+                    </strong>
+
+                    <small>
+                        All time
+                    </small>
+
+                </div>
+
+
+
+                <div class="big-stat">
+
+                    <span>
+                        Average Progress
+                    </span>
+
+                    <strong id="averageProgress">
+                        0%
+                    </strong>
+
+                    <small>
+                        Across all habits
+                    </small>
+
+                </div>
+
+
+
+                <div class="big-stat">
+
+                    <span>
+                        Longest Streak
+                    </span>
+
+                    <strong id="longestStreak">
+                        0 days
+                    </strong>
+
+                    <small>
+                        Your personal record
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PERFORMANCE -->
+
+            <div class="panel chart-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            Habit Performance
+                        </h2>
+
+                        <p>
+                            Completion percentage by habit.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="performanceChart"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CALENDAR
+        ========================== -->
+
+        <section
+            id="calendar"
+            class="section"
+        >
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Calendar
+                    </h2>
+
+                    <p>
+                        Track your daily completion history.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="panel calendar-panel">
+
+
+                <!-- CALENDAR HEADER -->
+
+                <div class="calendar-header">
+
+                    <button id="prevMonth">
+                        ‹
+                    </button>
+
+                    <h2 id="monthTitle">
+                        October 2026
+                    </h2>
+
+                    <button id="nextMonth">
+                        ›
+                    </button>
+
+                </div>
+
+
+
+                <!-- WEEK DAYS -->
+
+                <div class="calendar-weekdays">
+
+                    <span>
+                        Sun
+                    </span>
+
+                    <span>
+                        Mon
+                    </span>
+
+                    <span>
+                        Tue
+                    </span>
+
+                    <span>
+                        Wed
+                    </span>
+
+                    <span>
+                        Thu
+                    </span>
+
+                    <span>
+                        Fri
+                    </span>
+
+                    <span>
+                        Sat
+                    </span>
+
+                </div>
+
+
+
+                <!-- CALENDAR -->
+
+                <div
+                    id="calendarGrid"
+                    class="calendar-grid"
+                ></div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- =========================
+     ADD / EDIT HABIT MODAL
+========================== -->
+
+<div
+    class="modal-overlay"
+    id="modal"
+>
+
+
+    <div class="modal">
+
+
+        <!-- MODAL HEADER -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="modalTitle">
+                    Create New Habit
+                </h2>
+
+                <p>
+                    Build a habit that improves your daily life.
+                </p>
+
+            </div>
+
+
+            <button
+                id="closeModal"
+                class="close-btn"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+
+        <!-- HABIT FORM -->
+
+        <form id="habitForm">
+
+
+            <!-- EDIT ID -->
+
+            <input
+                type="hidden"
+                id="editHabitId"
+            >
+
+
+
+            <!-- HABIT NAME -->
+
+            <label for="habitName">
+                Habit Name
+            </label>
+
+            <input
+                type="text"
+                id="habitName"
+                placeholder="e.g. Read 20 minutes"
+                required
+            >
+
+
+
+            <!-- CATEGORY -->
+
+            <label for="habitCategory">
+                Category
+            </label>
+
+            <select
+                id="habitCategory"
+            >
+
+                <option value="Health">
+                    Health
+                </option>
+
+                <option value="Study">
+                    Study
+                </option>
+
+                <option value="Fitness">
+                    Fitness
+                </option>
+
+                <option value="Work">
+                    Work
+                </option>
+
+                <option value="Personal">
+                    Personal
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+
+
+            <!-- ICON -->
+
+            <label>
+                Icon
+            </label>
+
+            <div class="emoji-options">
+
+                <button
+                    type="button"
+                    class="emoji active"
+                >
+                    📚
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    🏃
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    💧
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    🧘
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    💻
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    🎯
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    😴
+                </button>
+
+                <button
+                    type="button"
+                    class="emoji"
+                >
+                    🥗
+                </button>
+
+            </div>
+
+
+
+            <!-- SELECTED ICON -->
+
+            <input
+                type="hidden"
+                id="habitIcon"
+                value="📚"
+            >
+
+
+
+            <!-- DAILY GOAL -->
+
+            <label for="habitGoal">
+                Daily Goal
+            </label>
+
+            <input
+                type="text"
+                id="habitGoal"
+                placeholder="e.g. 20 minutes"
+            >
+
+
+
+            <!-- =========================
+                 HABIT TIME
+            ========================== -->
+
+            <label for="habitTime">
+                Habit Time
+            </label>
+
+            <input
+                type="time"
+                id="habitTime"
+            >
+
+
+            <!-- TIME HELP TEXT -->
+
+            <small
+                style="
+                    display:block;
+                    margin-top:6px;
+                    color:#8b93aa;
+                    font-size:11px;
+                "
+            >
+                ⏰ Select the time when you want to complete this habit.
+            </small>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                class="submit-btn"
+                type="submit"
+            >
+                Create Habit
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
